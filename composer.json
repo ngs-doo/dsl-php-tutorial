@@ -1,0 +1,18 @@
+{
+    "name": "nutrija/dsl-php-tutorial",
+    "description": "PHP DSL-platform tutorial",
+    "require": {
+        "laravel/framework": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "app/commands",
+            "app/controllers",
+            "app/models",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests/TestCase.php"
+        ]
+    },
+    "minimum-stability": "dev"
+}
