@@ -67,7 +67,7 @@ DSL platform consists of a server running in the cloud, and you don't have to de
 
     After registration, you should be logged in. Click on the 'New project' button. This will create an empty new project. Now you can change its name to 'Blog' (this will make model classes reside in default \Blog namespace). Go to 'Downloads' section and download the zipped project files. Create a folder named 'dsl-platform' in '/app' folder of your Laravel installation and extract the download there. Now you should have two folders inside: dsl and platform. Platform folder contains necessary source files and generated code. The 'dsl' folder will be used to store .dsl files in which we'll describe our application data domain (models).
 
-    We need to make Laravel recognize the DSL bundle. Normally, we'd make a separate bundle which handles initailization, but we'll skip that here and just glue registration at the beginning of start/global.php file:
+    We need to make Laravel recognize the DSL bundle. Normally, we'd make a separate bundle which handles initialization, but we'll skip that here and just glue registration at the beginning of start/global.php file:
 
     ```php
         require_once(__DIR__.'/../dsl-platform/platform/Bootstrap.php');
@@ -80,7 +80,7 @@ DSL platform consists of a server running in the cloud, and you don't have to de
         - class loading (no autoloading is required)
         - initializing connection to the server
 
-    Bootstrap needs write permisssions to platform folder to copy downloaded source files. To set up permissions with apache as www-data user, run in your terminal:
+    Bootstrap needs write permissions to platform folder to copy downloaded source files. To set up permissions with apache as www-data user, run in your terminal:
 
     ```bash
         $ chown www-data. app/dsl-platform/platform/ -R
@@ -125,7 +125,7 @@ This DSL is pretty straightforward: it tells the platform to define a Post objec
 
 First line is used to define a module. Modules are used to encapsulate objects and avoid name collisions, pretty similar to PHP namespaces. So, the first line tells the platform that Post object will be placed inside a Blog module.
 
-Ok, that defined Post object in our DSL, what now? Open your browser and go to the URL of your application (the same you pointed to Laravel public folder to verify your installation). As before, you should get a 'Hello world' response. Currently we cannot see any difference here because the default controller returns the same response, we'll change that soon. But first, let's check what happened in the background. Check the contents of platform/modules in the dsl-platform folder. There should be a newly created Blog folder (taken from module name) and a Post.php file inside it. Those files were created using the description we provided in blog.dsl.
+That defined a Post object in our DSL, what now? Open your browser and go to the URL of your application (the same you pointed to Laravel public folder to verify your installation). As before, you should get a 'Hello world' response. Currently we cannot see any difference here because the default controller returns the same response, we'll change that soon. But first, let's check what happened in the background. Check the contents of platform/modules in the dsl-platform folder. There should be a newly created Blog folder (taken from module name) and a Post.php file inside it. Those files were created using the description we provided in blog.dsl.
 
 Each time any .dsl file is modified, platform will send the DSL contents to the platform server. Server will use definitions in DSL to update the database and generate PHP files representing concepts defined in DSL. The platform/modules is a folder that will contain all the generated PHP classes. It's similar to some tools generating PHP by using only database. In our case, we're using DSL to generate both PHP files and the database. To make things clearer, take a look at the beginning of generated Post.php file:
 
@@ -163,7 +163,7 @@ Route::get('/test', function()
 
 Now fire up your browser and go to {your-url}/test. You should get a response containing "Created post with URI 1001". This means a new Post has been persisted to database. It was assigned ID with value equal to 1001. That's because numeric keys start at 1000 by default and increase by 1, similarly to auto-incrementing or sequence keys.
 
-The code is self-descriptive: there is a new instance created, and some values are assigned to both Title and Content properties. After that, the persist method will start the communication with the server and tell it to store the object. Persist method is used both for inserting and updateing. Since we created a new post instance which doesn't exist in database yet, a new post will be inserted into database. 
+The code is self-descriptive: there is a new instance created, and some values are assigned to both Title and Content properties. After that, the persist method will start the communication with the server and tell it to store the object. Persist method is used both for inserting and updating. Since we created a new post instance which doesn't exist in database yet, a new post will be inserted into database. 
 
 Now we need to display an existing post. For that we'll create a route that searches for a specific post and displays it in a view (template) file. Add that route to routes.php:
 
@@ -204,9 +204,9 @@ And another view for post...
 
 Now you should see the post contents at {your-url}/1001.
 
-### Specifiying relationships
+### Specifying relationships
 
-Each blog should have some comments funcionality, so let's add that. To do that, first we must describe a comment in the DSL. Let's expand our DSL with a Comment:
+Each blog should have some comments functionality, so let's add that. To do that, first we must describe a comment in the DSL. Let's expand our DSL with a Comment:
 
     module Blog
     {
@@ -226,7 +226,7 @@ Each blog should have some comments funcionality, so let's add that. To do that,
 
 We added Comment as another root (that's the only DDD type we'll use for now). A basic comment has an email and content, and it should be useful to know when the comment was entered, so we specified a property named createdAt of 'date' type. Besides simple (or primitive) types such as strings, you can specify properties as complex types. Date is just one of the complex types you can use in the platform. In generated PHP code, date will be an instance of NGS\LocalDate class.
 
-If we refresh our blog, we'll se that Comment.php and some more files were generated and copied into modules folder. That means we can persist and read comments as we did with posts. That won't make much sense if we can't somehow connect each comment to a specific post. One way to do that is to specify a reference in each comment which specifies a particular post to which the comment belongs to. We can do that by adding a single line inside Comment:
+If we refresh our blog, we'll see that Comment.php and some more files were generated and copied into modules folder. That means we can persist and read comments as we did with posts. That won't make much sense if we can't somehow connect each comment to a specific post. One way to do that is to specify a reference in each comment which specifies a particular post to which the comment belongs to. We can do that by adding a single line inside Comment:
     
     root Comment
     {
@@ -292,7 +292,7 @@ foreach(Comment::findAll() as $comment)
         $postComments[] = $comment;
 ```
 
-That will work, but that's not very efficient because findAll method fetches all the comments in the database. We need a more efficient way to filter comments before they are fetched. There are two ways to do this: generic search and specificatoions.
+That will work, but that's not very efficient because findAll method fetches all the comments in the database. We need a more efficient way to filter comments before they are fetched. There are two ways to do this: generic search and specifications.
 
 ### Generic search
 
@@ -309,7 +309,7 @@ Equals method is one of the possible filters. It specifies exact match where the
 
 ### Specifications
 
-Specification states a certain condition, it has various uses, one of them is to filter items. We write a specification in the DSL. Here's a specificiation that fetches all comments belonging to a certain post:
+Specification states a certain condition, it has various uses, one of them is to filter items. We write a specification in the DSL. Here's a specification that fetches all comments belonging to a certain post:
 
     root Comment
     {
@@ -406,7 +406,7 @@ This is a simple DSL for handling user data:
 
 (obviously, you should not store passwords as plaintext)
 
-Putting "Username" property in parenthesis after root name will make Username a  primary key. Users can now be referenced by that username as its URI, and not the autogenerated ID key.
+Putting "Username" property in parenthesis after root name defines the property as a primary key. Users can now be uniquely identified by that username (it will equal URI property), and there is no more need for a ID property.
 
 A simple login route where we check if posted username and password match any user.
     
@@ -434,7 +434,7 @@ Route::post('/login', function() {
 
 ## DSL and beyond
 
-There are many more features of DSL platform, such as generating reports in various formats and analysing data using built-in [OLAP](http://en.wikipedia.org/wiki/Online_analytical_processing) features.
+There are many more features of DSL platform, such as generating reports in various formats and analyzing data using built-in [OLAP](http://en.wikipedia.org/wiki/Online_analytical_processing) features.
 
 Besides the features built-in in the platform, the DSL platform brings certain features specifically to PHP. One of the more interesting is type safety, which is a way to improve PHP's type system.
 
