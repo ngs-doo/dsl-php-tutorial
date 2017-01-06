@@ -10,7 +10,7 @@ This tutorial will show you how to develop a small PHP blog application by using
 
     You can clone or fork&clone the basic application from [Github](https://github.com/nutrija/dsl-php-tutorial).
 
-        $ git clone git@github.com:nutrija/dsl-php-tutorial dslblog
+        $ git clone https://github.com/ngs-doo/dsl-php-tutorial.git dslblog
 
 2. Install dependencies via composer
 
