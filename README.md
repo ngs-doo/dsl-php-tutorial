@@ -40,9 +40,9 @@ DSL platform consists of a server running in the cloud, and you don't have to de
 ### Installation
 
 1. Install basic Laravel application
-    You can fork the basic skeleton application from [Github](https://github.com/nutrija/dsl-php-tutorial) and then clone it, or go to your projects folder and clone the original repository directly:
+    You can fork the basic skeleton application from [Github](https://github.com/ngs-doo/dsl-php-tutorial) and then clone it, or go to your projects folder and clone the original repository directly:
 
-        $ git clone git@github.com:nutrija/dsl-php-tutorial dslblog
+        $ git clone https://github.com/ngs-doo/dsl-php-tutorial.git dslblog
 
     This will clone your repository into a new 'dslblog' folder. Repository contains this readme file, composer.json and basic Laravel file structure. We'll use composer to install Laravel core files. If you have composer installed, you can run 'composer install' inside dslblog folder. If you haven't used composer yet, composer is a PHP package manager that will download and register your dependencies. It's simple to install it, go to dslblog and run:
         
